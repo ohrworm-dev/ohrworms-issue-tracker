@@ -1,13 +1,14 @@
 <template>
   <div class='Home'>
     <h1>Homepage Works</h1>
-    <ApolloQuery :query="require('../graphql/queries/allTodos.gql')">
+    <ApolloQuery :query="require('../graphql/queries/search.gql')">
       <template v-slot="{result: {error, data}}">
         <h2 v-if="error">Please try again.</h2>
         <div v-if="data">
-          <p v-for="todo in data.todos" :key="todo.id">
-            {{todo.title}}
-          </p>
+          <div v-for="issue in data.publicIssues" :key="issue.id">
+            <h3>{{issue.title}}</h3>
+            <p>{{issue.description}}</p>
+          </div>
         </div>
       </template>
     </ApolloQuery>
@@ -16,12 +17,12 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Search from '@/components/Search.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Search
   }
 }
 </script>

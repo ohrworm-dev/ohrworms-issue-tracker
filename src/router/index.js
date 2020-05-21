@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Search from '../components/Search'
 
 Vue.use(VueRouter)
 

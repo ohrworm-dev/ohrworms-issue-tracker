@@ -1,6 +1,0 @@
-query allTodos {
-    todos {
-        id
-        title
-    }
-}

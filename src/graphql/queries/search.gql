@@ -1,0 +1,7 @@
+query Search($searchText: String!) {
+    issues(filter:{ title_contains: $searchText })
+        {
+        title
+        description
+        }
+      }

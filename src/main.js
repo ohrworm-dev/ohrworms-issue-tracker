@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 
 const apolloProvider = new VueApollo({
   defaultClient: new ApolloClient ({
-    uri: 'https://workow.herokuapp.com/v1/graphql'
+    uri: 'https://ohrworms-todo-app.herokuapp.com/v1/graphql'
   })
 })
 Vue.use(VueApollo)

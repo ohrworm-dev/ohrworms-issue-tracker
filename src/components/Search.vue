@@ -1,48 +1,42 @@
 <template>
   <div>
-    <div>
-      Search
-      <!-- 1 -->
-      <input type="text" v-model="searchTodos">
+    <div class="search">
+      <label>search issues</label>
+      <input type="text" v-model="searchText">
     </div>
-    <link-item
-      v-for="(todo, index) in allTodos"
-      :key="todo.id"
-      :todo="todo"
-      :index="index">
-    </link-item>
+    <div
+      v-for="issue in issues"
+      :key="issue.id"
+      :issue="issue">
+    </div>
+
+    <div class="displayedIssues">
+      <h2>Issues</h2>
+      <hr/>
+      <ApolloQuery :query="require('../graphql/queries/showIssues.gql')">
+        <template v-slot="{result: {error, data}}">
+          <h2 v-if="error">Please try again.</h2>
+          <div v-if="data">
+            <div v-for="issue in data.issues" :key="issue.id">
+              <h3>{{issue.title}}</h3>
+              <p>{{issue.description}}</p>
+            </div>
+          </div>
+        </template>
+      </ApolloQuery>
+    </div>
   </div>
 </template>
 
 <script>
-  // 2
-  import { ALL_TODOS_SEARCH_QUERY } from '../constants/graphql'
-  import TodoItem from './TodoItem'
+import { search } from '../graphql/queries/search.gql'
 
-  export default {
-    name: 'Search',
-    data () {
-      return {
-        allTodos: [],
-        searchText: ''
-      }
-    },
-    // 3
-    apollo: {
-      allTodos: {
-        query: ALL_TODOS_SEARCH_QUERY,
-        variables () {
-          return {
-            searchText: this.searchText
-          }
-        },
-        skip () {
-          return !this.searchText
-        }
-      }
-    },
-    components: {
-      TodoItem
+export default {
+  name: 'Search',
+  data () {
+    return {
+      searchText: ''
     }
-  }
+  },
+}
 </script>
